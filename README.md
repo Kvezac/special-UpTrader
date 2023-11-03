@@ -3,7 +3,7 @@
 
 * Клонировать репозиторий на локальный компьютер
 ```commandline
-https://github.com/Kvezac/legendary-menu
+git clone https://github.com/Kvezac/special-UpTrader
 ```
 * Установить зависимости
 ```commandline
