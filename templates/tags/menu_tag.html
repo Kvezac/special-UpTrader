@@ -1,9 +1,37 @@
+<style>
+    /* Hide nested lists by default */
+    ul ul {
+        display: none;
+    }
+
+    /* Show nested lists when parent is hovered */
+    ul li:hover > ul {
+        display: block;
+    }
+</style>
+
 <ul>
-    {% for item in items %}
+    {% for item in main_menu %}
         <li>
-            <a class="active" href="?{{ menu }}={{ item.id }}">{{ item.title }}</a>
-            {% if item.child_items %}
-                {% include "tags/menu_tag.html" with items=item.child_items %}
+            <a class="active" href="?{{ item.url }}={{ item.id }}">{{ item.name }}</a>
+            {% if item.children.count %}
+                <ul>
+                    {% for child in item.children.all %}
+                        <li>
+                            <a class="active" href="?{{ child.slug }}={{ child.id }}">{{ child.name }}</a>
+                            {% if child.children.count %}
+                                <ul>
+                                    {% for grandchild in child.children.all %}
+                                        <li>
+                                            <a class="active"
+                                               href="?{{ grandchild.slug }}={{ grandchild.id }}">{{ grandchild.name }}</a>
+                                        </li>
+                                    {% endfor %}
+                                </ul>
+                            {% endif %}
+                        </li>
+                    {% endfor %}
+                </ul>
             {% endif %}
         </li>
     {% endfor %}
